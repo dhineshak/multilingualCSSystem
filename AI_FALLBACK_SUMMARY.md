@@ -39,7 +39,7 @@ When Gemini API is unavailable (quota exceeded, high demand), the system now aut
 
 ## Current Configuration
 ```env
-OPENAI_API_KEY=AIzaSyAiX_3SaLlr5Uv5AzO8aOeu1PXuykvfJGs
+OPENAI_API_KEY=xxxxx
 AI_BASE_URL=https://generativelanguage.googleapis.com/v1
 AI_MODEL=gemini-2.5-flash
 DEMO_MODE=false

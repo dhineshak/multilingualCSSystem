@@ -25,7 +25,7 @@
 
 ### **Current Configuration**
 ```env
-OPENAI_API_KEY=AIzaSyAiX_3SaLlr5Uv5AzO8aOeu1PXuykvfJGs
+OPENAI_API_KEY=xxxxxx
 AI_BASE_URL=https://generativelanguage.googleapis.com/v1
 AI_MODEL=gemini-2.5-flash
 AI_MAX_TOKENS=800
