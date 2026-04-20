@@ -103,10 +103,16 @@ class AIService {
         return await this.generateGeminiResponse(intent, message, language, context, modelIndex + 1);
       }
       
-      // If quota exceeded, wait and retry with exponential backoff
-      if (error.response?.data?.error?.code === 429) {
+      // If quota exceeded, try next model instead of retrying same one
+      if (error.response?.data?.error?.code === 429 && modelIndex < this.fallbackModels.length) {
+        console.warn(`Model ${modelToTry} quota exceeded, trying fallback model...`);
+        return await this.generateGeminiResponse(intent, message, language, context, modelIndex + 1);
+      }
+      
+      // If quota exceeded on last model, wait and retry
+      if (error.response?.data?.error?.code === 429 && modelIndex >= this.fallbackModels.length) {
         const waitTime = Math.pow(2, modelIndex + 1) * 1000; // 2s, 4s, 8s
-        console.warn(`Rate limited. Retrying in ${waitTime/1000} seconds with model ${modelToTry}...`);
+        console.warn(`All models quota exceeded. Retrying in ${waitTime/1000} seconds with model ${modelToTry}...`);
         
         setTimeout(async () => {
           return await this.generateGeminiResponse(intent, message, language, context, modelIndex);
